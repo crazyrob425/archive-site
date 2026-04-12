@@ -1,34 +1,38 @@
 import { useParams, Link } from "wouter";
-import { trpc } from "@/lib/trpc";
-import { Loader2, ShoppingCart, ChevronLeft, Star } from "lucide-react";
+import { ShoppingCart, ChevronLeft, Star, Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getProductExtras } from "./catalog-data.js";
+import { productCatalog, getProductExtras } from "../catalog-data.js";
 
 export default function ProductDetail() {
   const params = useParams();
   const slug = params.slug as string;
   const [quantity, setQuantity] = useState(1);
-  const extras = getProductExtras(slug);
+  
+  // Find product from catalog
+  const product = productCatalog.find(p => p.slug === slug);
+  const extras = product ? getProductExtras(slug) : null;
 
-  const { data: product, isLoading } = trpc.products.bySlug.useQuery({ slug });
-  const addToCart = trpc.cart.add.useMutation({
-    onSuccess: () => {
-      toast.success("Added to cart!");
-      setQuantity(1);
-    },
-    onError: (err) => {
-      toast.error(err.message || "Failed to add to cart");
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="animate-spin text-accent" size={32} />
-      </div>
-    );
-  }
+  const addToCart = () => {
+    if (!product) return;
+    
+    // Get existing cart
+    const existingCart = localStorage.getItem("cart");
+    let cart = existingCart ? JSON.parse(existingCart) : [];
+    
+    // Add or update product
+    const existingItem = cart.find((item: any) => item.slug === slug);
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({ slug, quantity });
+    }
+    
+    // Save cart
+    localStorage.setItem("cart", JSON.stringify(cart));
+    toast.success("Added to cart!");
+    setQuantity(1);
+  };
 
   if (!product) {
     return (
@@ -188,12 +192,11 @@ export default function ProductDetail() {
                   </div>
                 </div>
                 <button
-                  onClick={() => addToCart.mutate({ productId: product.id, quantity })}
-                  disabled={addToCart.isPending}
-                  className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50"
+                  onClick={addToCart}
+                  className="w-full btn-primary flex items-center justify-center gap-2"
                 >
                   <ShoppingCart size={20} />
-                  {addToCart.isPending ? "Adding..." : "Add to Cart"}
+                  Add to Cart
                 </button>
               </div>
 

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { trpc } from "@/lib/trpc";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { serviceBureauContent } from "./catalog-data.js";
+import { serviceBureauContent } from "../catalog-data.js";
 
 export default function ServiceBureau() {
   const [formData, setFormData] = useState({
@@ -16,9 +15,19 @@ export default function ServiceBureau() {
     materialFinish: "Archival cloth",
     visualPackage: "Standard charts",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitRequest = trpc.serviceBureau.create.useMutation({
-    onSuccess: () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate submission delay
+    setTimeout(() => {
       toast.success("Request submitted! We'll be in touch soon.");
       setFormData({
         name: "",
@@ -31,32 +40,8 @@ export default function ServiceBureau() {
         materialFinish: "Archival cloth",
         visualPackage: "Standard charts",
       });
-    },
-    onError: (err) => {
-      toast.error(err.message || "Failed to submit request");
-    },
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submitRequest.mutate({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      projectTitle: formData.projectTitle,
-      description: [
-        formData.description,
-        `\nDeliverable format: ${formData.deliverableFormat}`,
-        `Binding style: ${formData.bindingStyle}`,
-        `Binding material: ${formData.materialFinish}`,
-        `Visual package: ${formData.visualPackage}`,
-      ].join("\n"),
-    });
+      setIsSubmitting(false);
+    }, 1000);
   };
 
   return (
@@ -282,11 +267,11 @@ export default function ServiceBureau() {
 
             <button
               type="submit"
-              disabled={submitRequest.isPending}
+              disabled={isSubmitting}
               className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              {submitRequest.isPending && <Loader2 className="animate-spin" size={20} />}
-              {submitRequest.isPending ? "Submitting..." : "Submit Request"}
+              {isSubmitting && <Loader2 className="animate-spin" size={20} />}
+              {isSubmitting ? "Submitting..." : "Submit Request"}
             </button>
           </form>
         </div>

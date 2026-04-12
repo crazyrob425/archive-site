@@ -1,32 +1,29 @@
 import { useState } from "react";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { trpc } from "@/lib/trpc";
-import { Loader2, Download, LogOut } from "lucide-react";
+import { Download, LogOut } from "lucide-react";
 import { toast } from "sonner";
-import { getLoginUrl } from "@/const";
 import { Link } from "wouter";
 
 export default function Account() {
-  const { user, isAuthenticated, logout } = useAuth();
   const [activeTab, setActiveTab] = useState("orders");
 
-  const { data: orders, isLoading: ordersLoading } = trpc.orders.list.useQuery(undefined, {
-    enabled: isAuthenticated,
-  });
-
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("userName");
     toast.success("Logged out successfully");
+    window.location.href = "/";
   };
 
-  if (!isAuthenticated) {
+  const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+  const userName = localStorage.getItem("userName") || "User";
+
+  if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <div className="container py-24 text-center">
           <h1 className="text-4xl font-bold mb-4">Sign in to your account</h1>
-          <a href={getLoginUrl()} className="btn-primary inline-block">
+          <Link href="/account" className="btn-primary inline-block">
             Sign In
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -40,7 +37,7 @@ export default function Account() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-5xl font-bold mb-2">My Account</h1>
-              <p className="text-muted-foreground">Welcome, {user?.name || user?.email}</p>
+              <p className="text-muted-foreground">Welcome, {userName}</p>
             </div>
             <button
               onClick={handleLogout}
@@ -95,41 +92,12 @@ export default function Account() {
           {activeTab === "orders" && (
             <div>
               <h2 className="text-3xl font-bold mb-8">Order History</h2>
-              {ordersLoading ? (
-                <div className="flex justify-center py-12">
-                  <Loader2 className="animate-spin text-accent" size={32} />
-                </div>
-              ) : orders && orders.length > 0 ? (
-                <div className="space-y-4">
-                  {orders.map((order) => (
-                    <div key={order.id} className="bg-card border border-border rounded-lg p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Order #{order.id}</p>
-                          <p className="font-bold text-lg">${order.totalAmount}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm text-muted-foreground">
-                            {new Date(order.createdAt).toLocaleDateString()}
-                          </p>
-                          <p className={`font-semibold ${
-                            order.status === "completed" ? "text-green-500" : "text-yellow-500"
-                          }`}>
-                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground mb-6">No orders yet</p>
-                  <Link href="/shop" className="btn-primary inline-block">
-                    Start Shopping
-                  </Link>
-                </div>
-              )}
+              <div className="text-center py-12">
+                <p className="text-muted-foreground mb-6">No orders yet. Your purchases will appear here.</p>
+                <Link href="/shop" className="btn-primary inline-block">
+                  Start Shopping
+                </Link>
+              </div>
             </div>
           )}
 

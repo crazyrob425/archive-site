@@ -1,53 +1,59 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Loader2, Trash2, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
-import { getLoginUrl } from "@/const";
+import { productCatalog } from "../catalog-data.js";
+
+interface CartItem {
+  slug: string;
+  quantity: number;
+}
 
 export default function Cart() {
-  const { isAuthenticated } = useAuth();
-  const { data: cartItems, isLoading, refetch } = trpc.cart.list.useQuery(undefined, {
-    enabled: isAuthenticated,
-  });
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [mounted, setMounted] = useState(false);
 
-  const removeItem = trpc.cart.remove.useMutation({
-    onSuccess: () => {
-      refetch();
-      toast.success("Removed from cart");
-    },
-  });
+  useEffect(() => {
+    const saved = localStorage.getItem("cart");
+    if (saved) {
+      try {
+        setCartItems(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse cart:", e);
+      }
+    }
+    setMounted(true);
+  }, []);
 
-  const clearCart = trpc.cart.clear.useMutation({
-    onSuccess: () => {
-      refetch();
-      toast.success("Cart cleared");
-    },
-  });
+  const removeItem = (slug: string) => {
+    const updated = cartItems.filter(item => item.slug !== slug);
+    setCartItems(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
+    toast.success("Removed from cart");
+  };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="container py-24 text-center">
-          <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
-          <h1 className="text-4xl font-bold mb-4">Sign in to view your cart</h1>
-          <a href={getLoginUrl()} className="btn-primary inline-block">
-            Sign In
-          </a>
-        </div>
-      </div>
-    );
-  }
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.setItem("cart", JSON.stringify([]));
+    toast.success("Cart cleared");
+  };
 
-  if (isLoading) {
+  if (!mounted) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="animate-spin text-accent" size={32} />
+        <p className="text-muted-foreground">Loading cart...</p>
       </div>
     );
   }
 
-  const total = cartItems?.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0) || 0;
+  const items = cartItems
+    .map(cartItem => {
+      const product = productCatalog.find(p => p.slug === cartItem.slug);
+      return product ? { ...cartItem, product } : null;
+    })
+    .filter(Boolean);
+
+  const total = items.reduce((sum, item) => sum + (parseFloat(item!.product.price) * item!.quantity), 0);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -61,7 +67,7 @@ export default function Cart() {
       {/* Cart Content */}
       <div className="section-spacing">
         <div className="container">
-          {!cartItems || cartItems.length === 0 ? (
+          {items.length === 0 ? (
             <div className="text-center py-12">
               <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground mb-6">Your cart is empty</p>
@@ -74,34 +80,33 @@ export default function Cart() {
               {/* Items */}
               <div className="lg:col-span-2">
                 <div className="space-y-4">
-                  {cartItems.map((item) => (
-                    <div key={item.id} className="flex gap-4 p-4 bg-card border border-border rounded-lg">
+                  {items.map((item) => (
+                    <div key={item!.slug} className="flex gap-4 p-4 bg-card border border-border rounded-lg">
                       <div className="w-24 h-32 bg-muted rounded overflow-hidden flex-shrink-0">
-                        {item.product.coverImageUrl && (
+                        {item!.product.coverImageUrl && (
                           <img
-                            src={item.product.coverImageUrl}
-                            alt={item.product.title}
+                            src={item!.product.coverImageUrl}
+                            alt={item!.product.title}
                             className="w-full h-full object-cover"
                           />
                         )}
                       </div>
                       <div className="flex-1">
-                        <Link href={`/product/${item.product.slug}`} className="font-bold hover:text-accent transition-colors">
-                          {item.product.title}
+                        <Link href={`/product/${item!.product.slug}`} className="font-bold hover:text-accent transition-colors">
+                          {item!.product.title}
                         </Link>
-                        <p className="text-sm text-muted-foreground mb-2">{item.product.category}</p>
-                        <p className="text-accent font-semibold mb-2">${item.product.price}</p>
-                        <p className="text-sm">Qty: {item.quantity}</p>
+                        <p className="text-sm text-muted-foreground mb-2">{item!.product.category}</p>
+                        <p className="text-accent font-semibold mb-2">${item!.product.price}</p>
+                        <p className="text-sm">Qty: {item!.quantity}</p>
                       </div>
                       <div className="flex flex-col items-end justify-between">
                         <button
-                          onClick={() => removeItem.mutate({ cartItemId: item.id })}
-                          disabled={removeItem.isPending}
+                          onClick={() => removeItem(item!.slug)}
                           className="text-destructive hover:opacity-80 transition-opacity"
                         >
                           <Trash2 size={20} />
                         </button>
-                        <p className="font-bold">${(parseFloat(item.product.price) * item.quantity).toFixed(2)}</p>
+                        <p className="font-bold">${(parseFloat(item!.product.price) * item!.quantity).toFixed(2)}</p>
                       </div>
                     </div>
                   ))}
@@ -133,8 +138,7 @@ export default function Cart() {
                     Proceed to Checkout
                   </button>
                   <button
-                    onClick={() => clearCart.mutate()}
-                    disabled={clearCart.isPending}
+                    onClick={clearCart}
                     className="w-full btn-ghost"
                   >
                     Clear Cart

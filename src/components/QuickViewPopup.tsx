@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { X, ShoppingBasket, Zap, Star } from "lucide-react";
-import { getProductExtras } from "./catalog-data.js";
+import { getProductExtras } from "../catalog-data.js";
 import ReviewsPopup from "./ReviewsPopup";
 
 interface Product {

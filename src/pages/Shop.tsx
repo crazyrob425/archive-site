@@ -154,10 +154,6 @@ export default function Shop() {
                 <div className="text-center py-12">
                   <p className="text-muted-foreground">No products found. Try adjusting your filters.</p>
                 </div>
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground">No products found</p>
-                </div>
               )}
             </div>
           </div>

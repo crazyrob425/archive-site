@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { serviceBureauContent } from "./catalog-data.js";
+import { serviceBureauContent } from "../catalog-data.js";
 
 const faqs = [
   {
