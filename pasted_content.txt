@@ -1,0 +1,29 @@
+i am on a very tight manus coin budget and have no financial means to purchase more, so i need you to use every technque, algorythm or method that is available in order to be as frugal with spending manus tokens as possible without sacrificing the quality of work done, please activly go research and find the best current toekn optimization techniques you can activly immediatly use to save as many tokens as absoutly possible and get the most amount of work as possible out of the manus coins i have as there will be no more availble whatsoever, so please make sure to make zero mistakes and not waste any coins at all and to fnd out the current absolute best toekn saving techiques, mathmatics, tools, and ideas that you can activly start using immediatly n the upcoming prject i am about to start you on, then once you have research and learned the best ways to save as many manus coins as possible, implment that token saving logic into your work immediatly and begin working on my man project which is:
+
+Project Goal: Build a high-end, professional E-commerce digital bookstore titled "The Archive of Rare Knowledge". The site must look established, authoritative, and reliable, appearing as though it has been a market leader since 2019.
+
+1. Brand Persona & Aesthetic: > * Design: A "Classic Modern" aesthetic—think Oxford University Press meets a sleek tech startup. Use deep navy, charcoal, and parchment white.
+
+Trust Signals: Feature a "Since 2019" badge prominently. The "About Us" page must detail the company’s history, highlighting how we flourished during the 2020 pandemic by providing vital niche information to home-bound researchers.
+
+Footer: Must include "Verified Secure" badges, DMCA protection logos, and professional links for ToS, Privacy Policy, and a "Digital Shipping & Handling" tab explaining the instant-delivery process.
+
+2. Core Product Categories:
+
+Niche Specialties: Dedicated sections for "Lost Hobbies," "Industrial Secrets," and "Out-of-Print Technical Manuals."
+
+Software Collections: A category for specialized reading software, ebook management tools, and secure sharing protocols.
+
+The Service Bureau: A high-ticket service category for "Custom Research & Guide Creation." Clearly state a fee of $100/hour with a 2-hour minimum per project. This section needs a professional intake form for users to request custom how-to books or workbooks.
+
+3. Technical Integrations:
+
+Stripe Checkout: Fully integrated payment gateway for one-click digital purchases.
+
+Market Intelligence Widgets: Live "Trending Globally" widgets that pull "similar titles" data from Amazon, Google Play Books, and Apple Books to show the user how our rare titles compare to mainstream top-sellers.
+
+Digital Fulfillment: Automate the delivery of PDF/ePub files via email immediately after a successful Stripe transaction.
+
+4. Content Strategy: > * Populate the shop with 10 placeholder "Rare Guides" with detailed descriptions and high-quality "Hero" book cover renders.
+
+Use professional, authoritative copy throughout the site to reinforce the idea that this is the most trusted niche digital bookstore on the internet.

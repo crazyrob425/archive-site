@@ -1,0 +1,25 @@
+{
+  "workspaceRoot": "e:\\archive-site",
+  "generatedAt": 1775962243061,
+  "structure": {
+    "totalFiles": 39,
+    "totalDirs": 8,
+    "languages": {
+      ".json": 2,
+      ".ps1": 5,
+      ".sql": 1,
+      ".tsx": 17,
+      ".ts": 8,
+      ".zip": 1,
+      ".css": 1,
+      ".html": 1,
+      ".txt": 1,
+      ".mjs": 1,
+      ".md": 1
+    },
+    "topDirectories": []
+  },
+  "summary": "Repository contains 39 files across 8 directories.\n\nPrimary languages:\n  .tsx: 17 files\n  .ts: 8 files\n  .ps1: 5 files\n  .json: 2 files\n  .sql: 1 files",
+  "fileTree": "archive-site/\n├── .claude/\n│   └── settings.local.json\n├── .flowbaby/\n│   └── logs/\n├── .mcp.json\n├── .specify/\n│   ├── memory/\n│   ├── scripts/\n│   │   └── powershell/\n│   │       ├── check-prerequisites.ps1\n│   │       ├── common.ps1\n│   │       ├── create-new-feature.ps1\n│   │       ├── setup-plan.ps1\n│   │       └── update-copilot-context.ps1\n│   └── specs/\n├── 0001_acoustic_stick.sql\n├── About.tsx\n├── Account.tsx\n├── Admin.tsx\n├── AdminOrders.tsx\n├── AdminRequests.tsx\n├── App.tsx\n├── Cart.tsx\n├── checkout.ts\n├── Checkout.tsx\n├── db.ts\n├── FAQ.tsx\n├── features.test.ts\n├── files.zip\n├── fulfillment.ts\n├── Home.tsx\n├── index.css\n├── index.html\n├── pasted_content.txt\n├── Privacy.tsx\n├── ProductDetail.tsx\n├── Refund.tsx\n├── routers.ts\n├── schema.ts\n├── seed-products.mjs\n├── serviceBureau.ts\n├── ServiceBureau.tsx\n├── Shipping.tsx\n├── Shop.tsx\n├── storage.ts\n├── Terms.tsx\n└── todo.md",
+  "keyFiles": []
+}

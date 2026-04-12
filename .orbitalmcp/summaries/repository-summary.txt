@@ -1,0 +1,62 @@
+REPO: archive-site
+FILES: 39 | DIRS: 8
+LANGS: .json:2 .ps1:5 .sql:1 .tsx:17 .ts:8 .zip:1 .css:1 .html:1 .txt:1 .mjs:1 .md:1
+
+Repository contains 39 files across 8 directories.
+
+Primary languages:
+  .tsx: 17 files
+  .ts: 8 files
+  .ps1: 5 files
+  .json: 2 files
+  .sql: 1 files
+
+STRUCTURE:
+archive-site/
+├── .claude/
+│   └── settings.local.json
+├── .flowbaby/
+│   └── logs/
+├── .mcp.json
+├── .specify/
+│   ├── memory/
+│   ├── scripts/
+│   │   └── powershell/
+│   │       ├── check-prerequisites.ps1
+│   │       ├── common.ps1
+│   │       ├── create-new-feature.ps1
+│   │       ├── setup-plan.ps1
+│   │       └── update-copilot-context.ps1
+│   └── specs/
+├── 0001_acoustic_stick.sql
+├── About.tsx
+├── Account.tsx
+├── Admin.tsx
+├── AdminOrders.tsx
+├── AdminRequests.tsx
+├── App.tsx
+├── Cart.tsx
+├── checkout.ts
+├── Checkout.tsx
+├── db.ts
+├── FAQ.tsx
+├── features.test.ts
+├── files.zip
+├── fulfillment.ts
+├── Home.tsx
+├── index.css
+├── index.html
+├── pasted_content.txt
+├── Privacy.tsx
+├── ProductDetail.tsx
+├── Refund.tsx
+├── routers.ts
+├── schema.ts
+├── seed-products.mjs
+├── serviceBureau.ts
+├── ServiceBureau.tsx
+├── Shipping.tsx
+├── Shop.tsx
+├── storage.ts
+├── Terms.tsx
+└── todo.md
