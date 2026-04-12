@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { X, ShoppingBasket, Zap, Star } from "lucide-react";
 import { getProductExtras } from "../catalog-data.js";
 import ReviewsPopup from "./ReviewsPopup";
+import { addItemToCart } from "../lib/cart";
+import { redirectToStripeCheckout } from "../lib/stripe-checkout";
+import { toast } from "sonner";
 
 interface Product {
   id: string;
@@ -24,6 +27,7 @@ export default function QuickViewPopup({ product, onClose }: QuickViewPopupProps
   const [hoverRating, setHoverRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const [showLoginToast, setShowLoginToast] = useState(false);
+  const [isBuyingNow, setIsBuyingNow] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -193,10 +197,10 @@ export default function QuickViewPopup({ product, onClose }: QuickViewPopupProps
           {/* Pricing */}
           <div className="pb-3 border-b border-border/50">
             <div className="flex items-baseline gap-3">
-              <span className="text-2xl font-bold text-accent">${product.price.toFixed(2)}</span>
+              <span className="text-2xl font-bold text-accent">${Number(product.price).toFixed(2)}</span>
               {extras.compareAtPrice && (
                 <span className="text-sm text-muted-foreground line-through">
-                  ${extras.compareAtPrice.toFixed(2)}
+                  ${Number(extras.compareAtPrice).toFixed(2)}
                 </span>
               )}
             </div>
@@ -247,8 +251,8 @@ export default function QuickViewPopup({ product, onClose }: QuickViewPopupProps
             <button
               onClick={(e) => {
                 e.preventDefault();
-                // Add to cart logic would go here
-                console.log("Added to cart:", product.id);
+                addItemToCart(product.slug, 1);
+                toast.success("Added to cart!");
                 onClose();
               }}
               className="btn-secondary flex items-center justify-center gap-2 py-3 px-4"
@@ -257,16 +261,21 @@ export default function QuickViewPopup({ product, onClose }: QuickViewPopupProps
               <span>Add to Cart</span>
             </button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                // Quick buy logic would go here
-                console.log("Quick buy:", product.id);
-                onClose();
+                setIsBuyingNow(true);
+                try {
+                  await redirectToStripeCheckout([{ slug: product.slug, quantity: 1 }]);
+                } catch (error) {
+                  toast.error(error instanceof Error ? error.message : "Unable to start checkout");
+                  setIsBuyingNow(false);
+                }
               }}
-              className="btn-primary flex items-center justify-center gap-2 py-3 px-4"
+              disabled={isBuyingNow}
+              className="btn-primary flex items-center justify-center gap-2 py-3 px-4 disabled:opacity-50"
             >
               <Zap size={18} />
-              <span>Quick Buy</span>
+              <span>{isBuyingNow ? "Opening Stripe…" : "Quick Buy"}</span>
             </button>
           </div>
 

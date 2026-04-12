@@ -3,39 +3,43 @@ import { Link } from "wouter";
 import { Trash2, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 import { productCatalog } from "../catalog-data.js";
-
-interface CartItem {
-  slug: string;
-  quantity: number;
-}
+import { clearCartItems, getCartItems, removeItemFromCart, type CartItem } from "../lib/cart";
+import { redirectToStripeCheckout } from "../lib/stripe-checkout";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cart");
-    if (saved) {
-      try {
-        setCartItems(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse cart:", e);
-      }
-    }
+    setCartItems(getCartItems());
     setMounted(true);
   }, []);
 
   const removeItem = (slug: string) => {
-    const updated = cartItems.filter(item => item.slug !== slug);
+    const updated = removeItemFromCart(slug);
     setCartItems(updated);
-    localStorage.setItem("cart", JSON.stringify(updated));
     toast.success("Removed from cart");
   };
 
   const clearCart = () => {
+    clearCartItems();
     setCartItems([]);
-    localStorage.setItem("cart", JSON.stringify([]));
     toast.success("Cart cleared");
+  };
+
+  const startCheckout = async () => {
+    if (cartItems.length === 0) return;
+
+    setIsCheckingOut(true);
+    try {
+      await redirectToStripeCheckout(
+        cartItems.map((item) => ({ slug: item.slug, quantity: item.quantity })),
+      );
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to start checkout");
+      setIsCheckingOut(false);
+    }
   };
 
   if (!mounted) {
@@ -132,10 +136,11 @@ export default function Cart() {
                     </div>
                   </div>
                   <button
-                    onClick={() => window.location.href = "/checkout"}
-                    className="w-full btn-primary mb-4"
+                    onClick={startCheckout}
+                    disabled={isCheckingOut}
+                    className="w-full btn-primary mb-4 disabled:opacity-50"
                   >
-                    Proceed to Checkout
+                    {isCheckingOut ? "Redirecting to Stripe…" : "Proceed to Secure Checkout"}
                   </button>
                   <button
                     onClick={clearCart}

@@ -7,6 +7,7 @@ import ServiceBureau from './pages/ServiceBureau';
 import FAQ from './pages/FAQ';
 import About from './pages/About';
 import Cart from './pages/Cart';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/faq" component={FAQ} />
         <Route path="/about" component={About} />
         <Route path="/cart" component={Cart} />
+        <Route path="/checkout/success" component={CheckoutSuccess} />
         
         <Route>
           <div style={{

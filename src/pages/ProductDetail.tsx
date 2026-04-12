@@ -3,11 +3,14 @@ import { ShoppingCart, ChevronLeft, Star, Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { productCatalog, getProductExtras } from "../catalog-data.js";
+import { addItemToCart } from "../lib/cart";
+import { redirectToStripeCheckout } from "../lib/stripe-checkout";
 
 export default function ProductDetail() {
   const params = useParams();
   const slug = params.slug as string;
   const [quantity, setQuantity] = useState(1);
+  const [isBuyingNow, setIsBuyingNow] = useState(false);
   
   // Find product from catalog
   const product = productCatalog.find(p => p.slug === slug);
@@ -15,23 +18,21 @@ export default function ProductDetail() {
 
   const addToCart = () => {
     if (!product) return;
-    
-    // Get existing cart
-    const existingCart = localStorage.getItem("cart");
-    let cart = existingCart ? JSON.parse(existingCart) : [];
-    
-    // Add or update product
-    const existingItem = cart.find((item: any) => item.slug === slug);
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      cart.push({ slug, quantity });
-    }
-    
-    // Save cart
-    localStorage.setItem("cart", JSON.stringify(cart));
+    addItemToCart(slug, quantity);
     toast.success("Added to cart!");
     setQuantity(1);
+  };
+
+  const buyNow = async () => {
+    if (!product) return;
+
+    setIsBuyingNow(true);
+    try {
+      await redirectToStripeCheckout([{ slug, quantity }]);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Unable to start checkout");
+      setIsBuyingNow(false);
+    }
   };
 
   if (!product) {
@@ -191,13 +192,22 @@ export default function ProductDetail() {
                     </button>
                   </div>
                 </div>
-                <button
-                  onClick={addToCart}
-                  className="w-full btn-primary flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart size={20} />
-                  Add to Cart
-                </button>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <button
+                    onClick={addToCart}
+                    className="w-full btn-primary flex items-center justify-center gap-2"
+                  >
+                    <ShoppingCart size={20} />
+                    Add to Cart
+                  </button>
+                  <button
+                    onClick={buyNow}
+                    disabled={isBuyingNow}
+                    className="w-full btn-secondary flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {isBuyingNow ? "Opening Stripe…" : "Buy Now"}
+                  </button>
+                </div>
               </div>
 
               {extras.review && (
