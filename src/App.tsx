@@ -1,90 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Route, Switch, Link } from 'wouter';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import ProductDetail from './pages/ProductDetail';
+import ServiceBureau from './pages/ServiceBureau';
+import FAQ from './pages/FAQ';
+import About from './pages/About';
+import Cart from './pages/Cart';
 
 export default function App() {
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #1a1412 0%, #2a2420 100%)',
-      fontFamily: '"Playfair Display", serif',
-      color: '#f5ede3'
-    }}>
-      <div style={{
-        textAlign: 'center',
-        padding: '2rem',
-        maxWidth: '600px'
-      }}>
-        <h1 style={{
-          fontSize: '3.5rem',
-          fontWeight: 700,
-          marginBottom: '1rem',
-          background: 'linear-gradient(135deg, #d4af69 0%, #f5ede3 100%)',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          textShadow: '0 4px 6px rgba(212, 175, 105, 0.3)'
-        }}>
-          The Archive of Rare Knowledge
-        </h1>
-        <p style={{
-          fontSize: '1.2rem',
-          color: '#c1a87b',
-          marginBottom: '2rem',
-          fontStyle: 'italic'
-        }}>
-          A luxury digital bookstore of obscure, niche, and hard-to-find knowledge.
-        </p>
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'center',
-          flexWrap: 'wrap'
-        }}>
-          <button style={{
-            padding: '1rem 2rem',
-            fontSize: '1rem',
-            background: 'linear-gradient(135deg, #d4af69 0%, #c1a87b 100%)',
-            color: '#1a1412',
-            border: 'none',
-            borderRadius: '0.75rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(212, 175, 105, 0.3)'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 6px 20px rgba(212, 175, 105, 0.4)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 15px rgba(212, 175, 105, 0.3)';
+    <div className="archive-frame">
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/shop" component={Shop} />
+        <Route path="/product/:slug" component={ProductDetail} />
+        <Route path="/service-bureau" component={ServiceBureau} />
+        <Route path="/faq" component={FAQ} />
+        <Route path="/about" component={About} />
+        <Route path="/cart" component={Cart} />
+        
+        <Route>
+          <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#1a1412',
+            color: '#f5ede3',
+            fontFamily: '"Playfair Display", serif'
           }}>
-            Explore Collections
-          </button>
-          <button style={{
-            padding: '1rem 2rem',
-            fontSize: '1rem',
-            background: 'transparent',
-            color: '#d4af69',
-            border: '2px solid #d4af69',
-            borderRadius: '0.75rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.background = 'rgba(212, 175, 105, 0.1)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.background = 'transparent';
-          }}>
-            Learn More
-          </button>
-        </div>
-      </div>
+            <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>404 - Page Not Found</h1>
+            <Link href="/" style={{ color: '#d4af69', textDecoration: 'underline', fontSize: '1.1rem' }}>
+              Back to Home
+            </Link>
+          </div>
+        </Route>
+      </Switch>
     </div>
   );
 }
