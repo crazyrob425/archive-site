@@ -8,10 +8,12 @@ import FAQ from './pages/FAQ';
 import About from './pages/About';
 import Cart from './pages/Cart';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import LuxuryBackdrop from './components/LuxuryBackdrop';
 
 export default function App() {
   return (
     <div className="archive-frame">
+      <LuxuryBackdrop />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/shop" component={Shop} />

@@ -74,6 +74,9 @@ export default function ProductDetail() {
 
             {/* Details */}
             <div>
+              <div className="inline-flex items-center rounded-full bg-emerald-500/15 px-3 py-1 text-sm font-semibold text-emerald-300 border border-emerald-500/30 mb-4">
+                Live digital product • Instant access
+              </div>
               {extras.saleLabel && (
                 <div className="inline-flex items-center rounded-full bg-destructive px-3 py-1 text-sm font-semibold text-destructive-foreground mb-4">
                   {extras.saleLabel}

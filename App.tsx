@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import LuxuryBackdrop from "./components/LuxuryBackdrop";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -54,6 +55,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <div className="archive-frame">
+            <LuxuryBackdrop />
             <Router />
           </div>
         </TooltipProvider>

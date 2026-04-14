@@ -242,7 +242,7 @@ export default function QuickViewPopup({ product, onClose }: QuickViewPopupProps
             </div>
             <div className="text-xs">
               <span className="text-muted-foreground">Availability</span>
-              <p className="font-semibold text-green-400">In Stock</p>
+              <p className="font-semibold text-green-400">Live digital product</p>
             </div>
           </div>
 

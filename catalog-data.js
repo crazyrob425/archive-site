@@ -5,7 +5,7 @@ const baseProducts = [
     description:
       "Master the timeless craft of precision watchmaking. This comprehensive guide covers movement assembly, escapement design, and restoration techniques for vintage timepieces. Perfect for horologists and mechanical enthusiasts.",
     category: "lost-hobbies",
-    price: "49.99",
+    price: "149.99",
     featured: true,
     cover: {
       accent: "#d4af37",
@@ -21,7 +21,7 @@ const baseProducts = [
     description:
       "Discover hand-tool woodworking methods from the pre-industrial era. Learn traditional joinery, wood selection, and finishing techniques that master craftsmen have used for centuries.",
     category: "lost-hobbies",
-    price: "44.99",
+    price: "129.99",
     featured: true,
     cover: {
       accent: "#c77d39",
@@ -37,7 +37,7 @@ const baseProducts = [
     description:
       "Explore the proprietary manufacturing techniques that built industrial empires. Detailed blueprints and specifications for machinery, production workflows, and quality control methods from the golden age of manufacturing.",
     category: "industrial-secrets",
-    price: "59.99",
+    price: "199.99",
     featured: true,
     cover: {
       accent: "#9aa0a6",
@@ -53,7 +53,7 @@ const baseProducts = [
     description:
       "Unlock rare chemical formulations and synthesis methods from restricted industrial archives. Includes detailed molecular diagrams, reaction pathways, and safety protocols for advanced chemical engineering.",
     category: "industrial-secrets",
-    price: "64.99",
+    price: "189.99",
     featured: false,
     cover: {
       accent: "#6bbf8d",
@@ -69,7 +69,7 @@ const baseProducts = [
     description:
       "The definitive guide to restoring and repairing classic vacuum tube radios. Complete schematics, component specifications, and troubleshooting procedures for radios from 1920-1960.",
     category: "technical-manuals",
-    price: "54.99",
+    price: "159.99",
     featured: true,
     cover: {
       accent: "#4aa3df",
@@ -85,7 +85,7 @@ const baseProducts = [
     description:
       "A technical deep-dive into vintage computer systems. Learn circuit board repair, component replacement, and data recovery from obsolete storage media. Essential for retro computing enthusiasts.",
     category: "technical-manuals",
-    price: "54.99",
+    price: "179.99",
     featured: false,
     cover: {
       accent: "#a78bfa",
@@ -101,7 +101,7 @@ const baseProducts = [
     description:
       "Master encryption standards and secure data transfer methods used in legacy systems. Comprehensive coverage of cryptographic protocols, authentication mechanisms, and secure architecture design.",
     category: "software-collections",
-    price: "69.99",
+    price: "149.99",
     featured: false,
     cover: {
       accent: "#f59e0b",
@@ -117,7 +117,7 @@ const baseProducts = [
     description:
       "Professional guide to building and managing digital library systems. Covers metadata standards, DRM implementation, distribution platforms, and user interface design for ebook ecosystems.",
     category: "software-collections",
-    price: "59.99",
+    price: "169.99",
     featured: false,
     cover: {
       accent: "#22c55e",
@@ -133,7 +133,7 @@ const baseProducts = [
     description:
       "Explore traditional and rare printing techniques including letterpress, relief printing, and hand-binding. Includes historical context, material sourcing, and step-by-step instruction for artisanal book production.",
     category: "lost-hobbies",
-    price: "49.99",
+    price: "124.99",
     featured: false,
     cover: {
       accent: "#eab308",
@@ -149,7 +149,7 @@ const baseProducts = [
     description:
       "The authoritative guide to preserving rare documents, manuscripts, and artifacts. Learn conservation techniques, environmental controls, and restoration methods used by world-class archives.",
     category: "lost-hobbies",
-    price: "54.99",
+    price: "144.99",
     featured: false,
     cover: {
       accent: "#38bdf8",
@@ -215,7 +215,7 @@ const baseProducts = [
     description:
       "A technical and folkloric survey of handmade weathervane dials from hillside springhouses across three counties. The text catalogs metal fatigue, weatherproofing recipes, and seasonal marker diagrams used by farmstead watchkeepers.",
     category: "lost-hobbies",
-    price: "540.00",
+    price: "499.00",
     featured: false,
     review: {
       author: "Devon P.",

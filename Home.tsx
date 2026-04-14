@@ -60,12 +60,12 @@ export default function Home() {
               Discover rare guides, out-of-print technical manuals, and niche knowledge from the world's most authoritative digital bookstore. Instant delivery. Lifetime access.
             </p>
             <div className="flex gap-4">
-              <Link href="/shop" className="btn-primary">
+              <a href="/shop" className="btn-primary">
                 Browse Collection
-              </Link>
-              <Link href="/service-bureau" className="btn-secondary">
+              </a>
+              <a href="/service-bureau" className="btn-secondary">
                 Custom Research
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -196,16 +196,16 @@ export default function Home() {
         <div className="container">
           <h2 className="text-4xl font-bold mb-12">Collections</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
+            {[ 
               { slug: "lost-hobbies", name: "Lost Hobbies", desc: "Forgotten crafts and techniques" },
               { slug: "industrial-secrets", name: "Industrial Secrets", desc: "Pre-digital manufacturing" },
               { slug: "technical-manuals", name: "Technical Manuals", desc: "Out-of-print documentation" },
               { slug: "software-collections", name: "Software Collections", desc: "Digital tools & protocols" },
             ].map((cat) => (
-              <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="p-6 bg-background border border-border rounded-lg hover:border-accent transition-colors">
+              <a key={cat.slug} href={`/shop?category=${cat.slug}`} className="p-6 bg-background border border-border rounded-lg hover:border-accent transition-colors">
                 <h3 className="font-bold mb-2">{cat.name}</h3>
                 <p className="text-sm text-muted-foreground">{cat.desc}</p>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

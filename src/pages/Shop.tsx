@@ -105,6 +105,9 @@ export default function Shop() {
                         </button>
                       </div>
                       <div className="p-4">
+                        <div className="mb-2 inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-semibold text-emerald-300 border border-emerald-500/30">
+                          Live digital product
+                        </div>
                         {getProductExtras(product.slug).saleLabel && (
                           <div className="mb-2 inline-flex items-center rounded-full bg-destructive px-2.5 py-1 text-xs font-semibold text-destructive-foreground">
                             {getProductExtras(product.slug).saleLabel}

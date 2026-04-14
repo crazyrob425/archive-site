@@ -475,6 +475,69 @@
     z-index: 2;
   }
 
+  .luxury-backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 1;
+  }
+
+  .luxury-backdrop__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+
+  .luxury-backdrop__glow {
+    position: absolute;
+    width: clamp(280px, 34vw, 620px);
+    height: clamp(280px, 34vw, 620px);
+    border-radius: 9999px;
+    filter: blur(72px);
+    opacity: 0.18;
+    animation: luxuryFloat 18s ease-in-out infinite;
+  }
+
+  .luxury-backdrop__glow--left {
+    top: -8%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(212, 175, 105, 0.24) 0%, rgba(212, 175, 105, 0.06) 45%, transparent 72%);
+  }
+
+  .luxury-backdrop__glow--right {
+    right: -12%;
+    bottom: -14%;
+    background: radial-gradient(circle, rgba(139, 106, 71, 0.22) 0%, rgba(212, 175, 105, 0.06) 45%, transparent 72%);
+    animation-delay: -9s;
+  }
+
+  .luxury-backdrop__grain {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(245, 237, 227, 0.06) 0 1px, transparent 1px),
+      radial-gradient(circle at 85% 25%, rgba(212, 175, 105, 0.06) 0 1px, transparent 1px),
+      radial-gradient(circle at 30% 78%, rgba(139, 106, 71, 0.05) 0 1px, transparent 1px),
+      radial-gradient(circle at 72% 82%, rgba(245, 237, 227, 0.05) 0 1px, transparent 1px);
+    background-size: 360px 360px;
+    opacity: 0.35;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes luxuryFloat {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(16px, -20px, 0) scale(1.05);
+    }
+  }
+
   @media (min-width: 640px) {
     .container {
       padding-left: 1.5rem;

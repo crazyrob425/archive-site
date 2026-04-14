@@ -54,12 +54,12 @@ export default function Home() {
               Where serious knowledge seekers acquire what others cannot find.
             </p>
             <div className="flex gap-6">
-              <Link href="/shop" className="btn-primary">
+              <a href="/shop" className="btn-primary">
                 Explore Our Collection
-              </Link>
-              <Link href="/service-bureau" className="btn-secondary">
+              </a>
+              <a href="/service-bureau" className="btn-secondary">
                 Commission Custom Research
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -121,6 +121,9 @@ export default function Home() {
                     </button>
                   </div>
                   <div className="p-4">
+                    <div className="mb-2 inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-semibold text-emerald-300 border border-emerald-500/30">
+                      Live digital product
+                    </div>
                     {getProductExtras(product.slug).saleLabel && (
                       <div className="mb-2 inline-flex items-center rounded-full bg-destructive px-2.5 py-1 text-xs font-semibold text-destructive-foreground">
                         {getProductExtras(product.slug).saleLabel}
@@ -193,17 +196,17 @@ export default function Home() {
           <p className="text-center text-accent font-bold text-sm tracking-widest mb-8">FOUR DISTINGUISHED CURATIONS</p>
           <h2 className="mb-16">Our Collections</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
+            {[ 
               { slug: "lost-hobbies", name: "Lost Hobbies", desc: "Forgotten crafts, artisanal techniques, pre-industrial methods" },
               { slug: "industrial-secrets", name: "Industrial Secrets", desc: "Proprietary manufacturing blueprints, production workflows" },
               { slug: "technical-manuals", name: "Technical Manuals", desc: "Out-of-print documentation, archival engineering records" },
               { slug: "software-collections", name: "Software Collections", desc: "Digital protocols, encryption methods, legacy systems" },
             ].map((cat) => (
-              <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="card group cursor-pointer">
+              <a key={cat.slug} href={`/shop?category=${cat.slug}`} className="card group cursor-pointer">
                 <h3 className="font-bold mb-3 text-lg group-hover:text-accent transition-colors">{cat.name}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{cat.desc}</p>
                 <div className="mt-6 text-xs text-accent font-bold tracking-wider">EXPLORE COLLECTION →</div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
