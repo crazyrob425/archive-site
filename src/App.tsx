@@ -8,11 +8,13 @@ import FAQ from './pages/FAQ';
 import About from './pages/About';
 import Cart from './pages/Cart';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import LegacyLandingBridge from './components/LegacyLandingBridge';
 import LuxuryBackdrop from './components/LuxuryBackdrop';
 
 export default function App() {
   return (
     <div className="archive-frame">
+      <LegacyLandingBridge />
       <LuxuryBackdrop />
       <Switch>
         <Route path="/" component={Home} />
